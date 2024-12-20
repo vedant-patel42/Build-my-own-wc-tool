@@ -4,8 +4,27 @@ import sys
 import argparse
 import os
 
-def count_bytes(file):
-    return sum(len(line.encode('utf-8')) for line in file)
+def countBytes(file):
+    try:
+        bytes_count = os.path.getsize(file)
+        return bytes_count
+    except Exception as e:
+        return e
+
+def countLines(file):
+    try:
+        with open(file, 'r') as f:
+            return len(f.readlines())
+    except Exception as e:
+        return e
+
+def countWords(file):
+    try:
+        with open(file,'r') as f:
+            words = [word for line in f for word in line.strip().split()]
+            return len(words)
+    except Exception as e:
+        return e
 
 def process_file(file, count_bytes_flag):
     byte_count = 0
@@ -18,30 +37,23 @@ def process_file(file, count_bytes_flag):
 
 def main():
     cmd = sys.argv
-    # parser = argparse.ArgumentParser(description="Custom wc command implementation.")
-    # parser.add_argument("files", nargs="+", help="Files to process.")
-    # parser.add_argument("-c", action="store_true", help="Count bytes.")
 
-    args = parser.parse_args()
-
-    if cmd[0] == 'ccwc':
+    if cmd[1] == 'ccwc':
         file_name = cmd[-1]
-        try:
-            bytes_count = os.path.getsize(file_name)
-        except Exception as e:
-            print(f"Error processing file {file_name}: {e}", file=sys.stderr)
-
-    # if not args.c:
-    #     print("Error: Please provide the -c option to count bytes.", file=sys.stderr)
-    #     sys.exit(1)
-    # for file_name in args.files:
-    #     try:
-    #         print(os.path.getsize(file_name))
-    #         with open(file_name, "r", encoding="utf-8") as file:
-    #             byte_count = process_file(file, args.c)
-    #             print(f"{byte_count:>8} {file_name}")
-    #     except Exception as e:
-    #         print(f"Error processing file {file_name}: {e}", file=sys.stderr)
+        if cmd[2] == '-c':
+            count_bytes = countBytes(file_name)
+            print(count_bytes, file_name)
+        elif cmd[2] == '-l':
+            count_lines = countLines(file_name)
+            print(count_lines, file_name)
+        elif cmd[2] == '-w':
+            count_words = countWords(file_name)
+            print(count_words, file_name)
+        else:
+            count_bytes = countBytes(file_name)
+            count_lines = countLines(file_name)
+            count_words = countWords(file_name)
+            print(count_words, count_lines, count_bytes, file_name)
 
 if __name__ == "__main__":
     main()
