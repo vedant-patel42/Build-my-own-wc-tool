@@ -3,6 +3,7 @@
 import sys
 import argparse
 import os
+import re
 
 def countBytes(file):
     try:
@@ -26,14 +27,14 @@ def countWords(file):
     except Exception as e:
         return e
 
-def process_file(file, count_bytes_flag):
-    byte_count = 0
-
-    for line in file:
-        if count_bytes_flag:
-            byte_count += len(line.encode('utf-8'))
-
-    return byte_count
+def countChars(file):
+    try:
+        with open(file, 'rb') as f:
+            content = f.read()
+            content = content.decode('utf-8')
+            return len(content)
+    except Exception as e:
+        return e
 
 def main():
     cmd = sys.argv
@@ -49,6 +50,9 @@ def main():
         elif cmd[2] == '-w':
             count_words = countWords(file_name)
             print(count_words, file_name)
+        elif cmd[2] == '-m':
+            count_char = countChars(file_name)
+            print(count_char, file_name)
         else:
             count_bytes = countBytes(file_name)
             count_lines = countLines(file_name)
