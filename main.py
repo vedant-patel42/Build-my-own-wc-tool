@@ -18,9 +18,9 @@ def process_file(file, count_bytes_flag):
 
 def main():
     cmd = sys.argv
-    parser = argparse.ArgumentParser(description="Custom wc command implementation.")
-    parser.add_argument("files", nargs="+", help="Files to process.")
-    parser.add_argument("-c", action="store_true", help="Count bytes.")
+    # parser = argparse.ArgumentParser(description="Custom wc command implementation.")
+    # parser.add_argument("files", nargs="+", help="Files to process.")
+    # parser.add_argument("-c", action="store_true", help="Count bytes.")
 
     args = parser.parse_args()
 
@@ -31,17 +31,17 @@ def main():
         except Exception as e:
             print(f"Error processing file {file_name}: {e}", file=sys.stderr)
 
-    if not args.c:
-        print("Error: Please provide the -c option to count bytes.", file=sys.stderr)
-        sys.exit(1)
-    for file_name in args.files:
-        try:
-            print(os.path.getsize(file_name))
-            with open(file_name, "r", encoding="utf-8") as file:
-                byte_count = process_file(file, args.c)
-                print(f"{byte_count:>8} {file_name}")
-        except Exception as e:
-            print(f"Error processing file {file_name}: {e}", file=sys.stderr)
+    # if not args.c:
+    #     print("Error: Please provide the -c option to count bytes.", file=sys.stderr)
+    #     sys.exit(1)
+    # for file_name in args.files:
+    #     try:
+    #         print(os.path.getsize(file_name))
+    #         with open(file_name, "r", encoding="utf-8") as file:
+    #             byte_count = process_file(file, args.c)
+    #             print(f"{byte_count:>8} {file_name}")
+    #     except Exception as e:
+    #         print(f"Error processing file {file_name}: {e}", file=sys.stderr)
 
 if __name__ == "__main__":
     main()
