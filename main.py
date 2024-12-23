@@ -38,19 +38,22 @@ def countChars(file):
 
 def main():
     cmd = sys.argv
+    print(cmd)
+    c = cmd[0].split('/')
+    print(c)
 
-    if cmd[1] == 'ccwc':
+    if c[-1] == 'ccwc':
         file_name = cmd[-1]
-        if cmd[2] == '-c':
+        if cmd[1] == '-c':
             count_bytes = countBytes(file_name)
             print(count_bytes, file_name)
-        elif cmd[2] == '-l':
+        elif cmd[1] == '-l':
             count_lines = countLines(file_name)
             print(count_lines, file_name)
-        elif cmd[2] == '-w':
+        elif cmd[1] == '-w':
             count_words = countWords(file_name)
             print(count_words, file_name)
-        elif cmd[2] == '-m':
+        elif cmd[1] == '-m':
             count_char = countChars(file_name)
             print(count_char, file_name)
         else:
