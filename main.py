@@ -1,9 +1,7 @@
 #!/usr/bin/env python3
 
 import sys
-import argparse
 import os
-import re
 
 def countBytes(file):
     try:
@@ -38,9 +36,7 @@ def countChars(file):
 
 def main():
     cmd = sys.argv
-    print(cmd)
     c = cmd[0].split('/')
-    print(c)
 
     if c[-1] == 'ccwc':
         file_name = cmd[-1]
